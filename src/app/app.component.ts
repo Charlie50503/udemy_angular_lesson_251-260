@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
+    this.http.post("https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json",postData)
   }
 
   onFetchPosts() {

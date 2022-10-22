@@ -9,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   loadedPosts = [];
 
-  constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
-    this.http.post("https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json",postData)
+    this.http.post("https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json", postData)
+    .subscribe(responseData => console.log(responseData))
   }
 
   onFetchPosts() {

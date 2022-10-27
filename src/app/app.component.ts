@@ -1,30 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { map } from "rxjs/operators"
+import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   loadedPosts = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.onFetchPosts()
+    this.onFetchPosts();
   }
 
   onCreatePost(postData: Post) {
     // Send Http request
-    this.http.post<{name:string}>("https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json", postData)
-      .subscribe(responseData => console.log(responseData))
+    this.http
+      .post<{ name: string }>(
+        'https://ng-complete-guide-2a447-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+        postData
+      )
+      .subscribe((responseData) => console.log(responseData));
   }
 
   onFetchPosts() {
     // Send Http request
-    this.fetchPosts()
+    this.fetchPosts();
   }
 
   onClearPosts() {
@@ -32,20 +36,24 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
-    this.http.get<{ [key: string]: Post }>("https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json")
-      .pipe(map((responseData) => {
-        const postsArray = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postsArray.push({ ...responseData[key], id: key })
+    this.http
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-2a447-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+      )
+      .pipe(
+        map((responseData) => {
+          const postsArray = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
           }
-        }
-        return postsArray;
-      }))
-      .subscribe(posts => {
-        console.log(posts)
-        this.loadedPosts = posts
-      })
+          return postsArray;
+        })
+      )
+      .subscribe((posts) => {
+        console.log(posts);
+        this.loadedPosts = posts;
+      });
   }
-
 }

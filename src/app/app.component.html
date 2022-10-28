@@ -37,7 +37,11 @@
           <p>{{post.content}}</p>
         </li>
       </ul>
-      <p *ngIf="isFetching">載入中</p>
+      <p *ngIf="isFetching && !error">載入中</p>
+      <div class="alert alert-danger" *ngIf="error">
+        <h1>發生錯誤</h1>
+        <p>{{error}}</p>
+      </div>
     </div>
   </div>
 </div>

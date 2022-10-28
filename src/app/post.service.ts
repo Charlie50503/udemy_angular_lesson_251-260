@@ -33,7 +33,6 @@ export class PostService {
           }
           return postsArray;
         })
-      )
-      .subscribe((posts) => {});
+      );
   }
 }

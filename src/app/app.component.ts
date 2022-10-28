@@ -20,13 +20,17 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: Post) {
     // Send Http request
+    console.log(postData);
     this.postService.createAndStorePost(postData.title, postData.content);
   }
 
   onFetchPosts() {
     // Send Http request
     this.isFetching = true;
-    this.postService.fetchPosts();
+    this.postService.fetchPosts().subscribe((posts) => {
+      this.isFetching = false;
+      this.loadedPosts = posts;
+    });
   }
 
   onClearPosts() {

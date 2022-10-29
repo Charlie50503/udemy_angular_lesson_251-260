@@ -27,12 +27,15 @@ export class PostService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('no1', '1');
+    searchParams = searchParams.append('print', 'pretty');
     return this.http
       .get<{ [key: string]: Post }>(
         'https://ng-complete-guide-2a447-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
-          params: new HttpParams().set('no', '1'),
+          params: searchParams,
         }
       )
       .pipe(

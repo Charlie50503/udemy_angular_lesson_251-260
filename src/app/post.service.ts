@@ -15,11 +15,14 @@ export class PostService {
     const postData: Post = { title, content, id: '0' };
     return this.http
       .post<{ name: string }>(
-        'https://ng-complete-guide-2a447-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
-        postData
+        'https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+        postData,
+        {
+          observe:'response'
+        }
       )
       .subscribe(
-        (responseData) => console.log(responseData),
+        (responseData) => console.log(responseData.body),
         (error) => {
           this.error.next(error.message);
         }

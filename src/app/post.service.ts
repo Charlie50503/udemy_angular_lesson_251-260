@@ -65,6 +65,12 @@ export class PostService {
       }
     ).pipe(tap(event=>{
       console.log(event);
+      if(event.type === HttpEventType.Sent){
+        console.log(event.type);
+      }
+      if(event.type === HttpEventType.Response){
+        console.log(event.body);
+      }
     }))
   }
 }

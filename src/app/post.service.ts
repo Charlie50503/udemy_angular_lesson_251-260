@@ -34,11 +34,12 @@ export class PostService {
     searchParams = searchParams.append('no1', '1');
     searchParams = searchParams.append('print', 'pretty');
     return this.http
-      .get<{ [key: string]: Post }>(
+      .get(
         'https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
           params: searchParams,
+          responseType: 'text'
         }
       )
       .pipe(
@@ -61,14 +62,15 @@ export class PostService {
     return this.http.delete(
       'https://angular-http-request-dd100-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
       {
-        observe:"events"
+        observe: "events",
+        responseType: 'text'
       }
-    ).pipe(tap(event=>{
+    ).pipe(tap(event => {
       console.log(event);
-      if(event.type === HttpEventType.Sent){
+      if (event.type === HttpEventType.Sent) {
         console.log(event.type);
       }
-      if(event.type === HttpEventType.Response){
+      if (event.type === HttpEventType.Response) {
         console.log(event.body);
       }
     }))

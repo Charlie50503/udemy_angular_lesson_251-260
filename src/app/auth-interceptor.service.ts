@@ -1,12 +1,11 @@
-import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 export class AuthInterceptorService implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
     console.log("request is on its way");
-    const modifiedRequest = req.clone({
-      params:null,
-      url:"some new url",
-
+    req= req.clone({
+      headers:req.headers.append('Auth','xyz'),
     })
     return next.handle(req);
 
